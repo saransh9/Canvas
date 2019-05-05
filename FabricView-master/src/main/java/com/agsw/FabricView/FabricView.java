@@ -449,10 +449,16 @@ public class FabricView extends View {
         // delegate action to the correct method
         if (getInteractionMode() == DRAW_MODE)
             return onTouchDrawMode(event);
-        if (getInteractionMode() == SELECT_MODE)
+        if (getInteractionMode() == SELECT_MODE && !mScaleDetector.getWasRotating()) {
             return onTouchSelectMode(event);
-        /*if(getInteractionMode()==ROTATE_MODE)
-            return true;*/
+        } else if (getInteractionMode() == SELECT_MODE && mScaleDetector.getWasRotating()) {
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_UP:
+                    mScaleDetector.setWasRotating(false);
+                    break;
+            }
+            //
+        }
         // if none of the above are selected, delegate to locked mode
         return onTouchLockedMode(event);
     }

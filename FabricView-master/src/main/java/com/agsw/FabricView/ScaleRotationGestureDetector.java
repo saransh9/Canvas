@@ -25,6 +25,7 @@ public class ScaleRotationGestureDetector extends ScaleGestureDetector {
     private float startSpan = -1;
     private int mInteractionMode;
     FabricView fabricView;
+    private boolean wasRotating=false;
 
     public ScaleRotationGestureDetector(FabricView fabricView,Context context, OnScaleRotationGestureListener rotationListener) {
         super(context, rotationListener);
@@ -34,6 +35,14 @@ public class ScaleRotationGestureDetector extends ScaleGestureDetector {
         this.fabricView=fabricView;
     }
 
+
+    public boolean getWasRotating(){
+        return wasRotating;
+    }
+
+    public void setWasRotating(boolean value){
+        this.wasRotating=value;
+    }
 
     public float getRotation() {
         return rotation;
@@ -72,6 +81,7 @@ public class ScaleRotationGestureDetector extends ScaleGestureDetector {
                     if(startSpan == -1) {
                         startSpan = getCurrentSpan();
                     }
+                    wasRotating=true;
                     rotationInProgress = true;
                 }
                 break;
