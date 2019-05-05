@@ -1,0 +1,3 @@
+include ':app', ':your_external_library_module_name'
+
+project (':your_external_library_module_name').projectDir = new File('/Users/saransh/Github/Canvas/FabricView-master')
